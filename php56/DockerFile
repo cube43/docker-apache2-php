@@ -4,13 +4,14 @@ FROM php:5.6-apache
 # See https://github.com/docker-library/php/issues/62
 
 
-RUN apt-get update && apt-get install -y libicu-dev zlib1g-dev
+RUN apt-get update && apt-get install -y libicu-dev zlib1g-dev libpng-dev
 
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install gd
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
  
