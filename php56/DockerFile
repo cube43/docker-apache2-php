@@ -22,7 +22,7 @@ RUN usermod -u 1000 www-data
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-COPY ./../php.ini /etc/php5/apache2/conf.d/php.ini
-COPY ./../php.ini /usr/local/etc/php/php.ini
+COPY config/php.ini /etc/php5/apache2/conf.d/php.ini
+COPY config/php.ini /usr/local/etc/php/php.ini
 
 WORKDIR /var/www
