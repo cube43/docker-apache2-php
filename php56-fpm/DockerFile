@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:5.6-fpm
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
@@ -18,9 +18,6 @@ RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer &
 # Workaround for write permission on write to MacOS X volumes
 # See https://github.com/boot2docker/boot2docker/pull/534
 RUN usermod -u 1000 www-data
- 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
 
 COPY config/php.ini /etc/php5/apache2/conf.d/php.ini
 COPY config/php.ini /usr/local/etc/php/php.ini
