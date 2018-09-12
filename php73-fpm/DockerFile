@@ -7,7 +7,7 @@ COPY config/php.ini /usr/local/etc/php/php.ini
 
 RUN echo "http://dl-3.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
-RUN apk update --update && apk add --update --no-cache icu-dev libpng-dev
+RUN apk update --update && apk add --update --no-cache icu-dev libpng-dev libzip-dev
 
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-configure intl
