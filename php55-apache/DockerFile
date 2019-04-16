@@ -3,7 +3,8 @@ FROM php:5.5-apache
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
 
-
+# Wheezy and Jessie were recently removed from the mirror network, so if you want to continue fetching Jessie backports, you need to use archive.debian.org instead:
+# See https://unix.stackexchange.com/questions/508724/failed-to-fetch-jessie-backports-repository
 RUN echo "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y libicu-dev zlib1g-dev libpng-dev mysql-client wget
@@ -21,6 +22,7 @@ RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer &
 # See https://github.com/boot2docker/boot2docker/pull/534
 RUN usermod -u 1000 www-data
 
+# Allow the rewriting engine
 RUN a2enmod rewrite
 
 COPY config/php.ini /etc/php5/apache2/conf.d/php.ini
