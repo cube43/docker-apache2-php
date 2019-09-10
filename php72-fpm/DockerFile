@@ -22,5 +22,6 @@ RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
+RUN composer selfupdate
 
 WORKDIR /var/www/
