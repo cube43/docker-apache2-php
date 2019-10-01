@@ -1,4 +1,4 @@
-FROM php:7.4.0beta1-fpm-alpine3.10 
+FROM php:7.4-rc-fpm-alpine3.10
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
@@ -22,5 +22,7 @@ RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
+RUN composer selfupdate
+RUN chmod 777 -R /tmp/
 
 WORKDIR /var/www/
