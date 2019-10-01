@@ -17,4 +17,3 @@ version : '3'
 services :
   php:
     image: cube43/docker-apache2-php
-``
