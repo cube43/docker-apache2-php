@@ -14,6 +14,7 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
+RUN docker-php-ext-install pcntl
 
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
