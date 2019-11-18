@@ -14,7 +14,8 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
-
+RUN docker-php-ext-configure bcmath
+RUN docker-php-ext-install bcmath
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 # Install APCu
