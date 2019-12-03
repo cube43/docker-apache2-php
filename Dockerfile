@@ -22,6 +22,10 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
+# pcov
+RUN pecl install pcov
+RUN docker-php-ext-enable pcov
+
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer selfupdate
 RUN chmod 777 -R /tmp/
