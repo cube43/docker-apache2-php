@@ -1,4 +1,4 @@
-FROM akondas/php:8.0-cli-alpine
+FROM php:8.0-rc-fpm-alpine3.12
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
