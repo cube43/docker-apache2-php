@@ -19,13 +19,10 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install pcntl
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
-# Install APCu
-RUN pecl install apcu
-RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
-# pcov
-RUN pecl install pcov
-RUN docker-php-ext-enable pcov
+RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
+RUN pickle install apcu
+RUN pickle install pcov
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer selfupdate
