@@ -24,6 +24,9 @@ RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.
 RUN pickle install apcu -n
 RUN pickle install pcov -n
 
+RUN echo "extension=pcov.so" >> /usr/local/etc/php/php.ini
+RUN echo "extension=apcu.so" >> /usr/local/etc/php/php.ini
+
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer selfupdate --2
 RUN chmod 777 -R /tmp/
