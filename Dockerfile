@@ -25,7 +25,7 @@ RUN pickle install apcu -n
 RUN pickle install pcov -n
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
-RUN composer selfupdate
+RUN composer selfupdate --2
 RUN chmod 777 -R /tmp/
 RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
 
