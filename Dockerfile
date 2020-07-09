@@ -21,8 +21,8 @@ RUN docker-php-ext-install pcntl
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 
 RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
-RUN pickle install apcu
-RUN pickle install pcov
+RUN pickle install apcu -n
+RUN pickle install pcov -n
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer selfupdate
