@@ -7,7 +7,7 @@ FROM php:5.5-apache
 # See https://unix.stackexchange.com/questions/508724/failed-to-fetch-jessie-backports-repository
 RUN echo "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y libicu-dev zlib1g-dev libpng-dev mysql-client wget
+RUN apt-get update && apt-get install -y libicu-dev zlib1g-dev libpng-dev mysql-client wget --force-yes
 
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install pdo_mysql
