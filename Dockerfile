@@ -28,7 +28,7 @@ RUN echo "extension=pcov.so" >> /usr/local/etc/php/php.ini
 RUN echo "extension=apcu.so" >> /usr/local/etc/php/php.ini
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
-RUN composer selfupdate --1
+RUN composer selfupdate --2
 RUN chmod 777 -R /tmp/
 RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
 
