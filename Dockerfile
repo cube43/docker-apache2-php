@@ -7,11 +7,11 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - 
     && sudo apt-get update \
     && sudo apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev \
     && pecl install sqlsrv \
-    && pecl install pdo_sqlsrv \
-    && docker-php-ext-enable sqlsrv pdo_sqlsrv \
-    && sudo apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+    && pecl install pdo_sqlsrv
 
-RUN sudo apt-get update
+RUN docker-php-ext-enable sqlsrv pdo_sqlsrv
+
 RUN sudo apt-get -y --no-install-recommends install mysql-client
+RUN sudo apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 WORKDIR /var/www/
