@@ -2,7 +2,7 @@ ARG PHP_EXTENSIONS="pdo_mysql intl zip gd bcmath pcntl apcu pcov"
 FROM thecodingmachine/php:7.4-v4-fpm
 
 # Install MS ODBC Driver for SQL Server
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - \
+RUN sudo curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - \
     && sudo curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && sudo apt-get update \
     && sudo apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev \
