@@ -11,5 +11,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && echo "extension=pdo_sqlsrv.so" >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini \
     && echo "extension=sqlsrv.so" >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-sqlsrv.ini \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+    
+RUN apk update --update && apk add --update --no-cache mysql-client
 
-WORKDIR /var/www/
+WORKDIR /var/www/html/
