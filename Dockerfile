@@ -40,4 +40,14 @@ RUN curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac
 RUN curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_17.6.1.1-1_amd64.apk && \
     apk add --allow-untrusted mssql-tools_17.6.1.1-1_amd64.apk;
 
+
+RUN cd /tmp \
+	&& curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
+    && tar -xvvzf ioncube.tar.gz \
+    && mv ioncube/ioncube_loader_lin_7.4.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/ \
+    && rm -Rf ioncube.tar.gz ioncube \
+    && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20190902/ioncube_loader_lin_7.4.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.0.ini
+
+
+
 WORKDIR /var/www/
