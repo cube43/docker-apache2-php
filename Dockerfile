@@ -5,7 +5,7 @@ FROM php:7.4-fpm-alpine3.12
 
 COPY php.ini /usr/local/etc/php/php.ini
 
-RUN apk update --update && apk add --update --no-cache icu-dev libpng-dev libzip-dev mysql-client
+RUN apk update --update && apk add --update --no-cache icu-dev libpng-dev libzip-dev mysql-client strace
 
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-configure intl
