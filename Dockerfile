@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine3.12
+FROM php:8.0-fpm-alpine3.15
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
@@ -23,9 +23,13 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
 RUN pickle install apcu
 RUN pickle install pcov
+RUN pecl install swoole
+
 
 RUN echo "extension=pcov.so" >> /usr/local/etc/php/php.ini
 RUN echo "extension=apcu.so" >> /usr/local/etc/php/php.ini
+RUN echo "extension=swoole.so" >> /usr/local/etc/php/php.ini
+
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer selfupdate --2
