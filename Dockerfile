@@ -17,6 +17,8 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-configure bcmath
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install exif
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 
@@ -35,5 +37,15 @@ RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer &
 RUN composer selfupdate --2
 RUN chmod 777 -R /tmp/
 RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
+
+RUN apk update \
+    && apk upgrade \
+    && apk add --no-cache \
+        freetype-dev \
+        libpng-dev \
+        jpeg-dev \
+        libjpeg-turbo-dev
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) gd
 
 WORKDIR /var/www/
