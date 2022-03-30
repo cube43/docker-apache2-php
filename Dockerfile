@@ -49,5 +49,7 @@ RUN cd /tmp \
     && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20190902/ioncube_loader_lin_7.4.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_7.0.ini
 
 
+RUN docker-php-ext-install calendar && docker-php-ext-configure calendar
+
 
 WORKDIR /var/www/
