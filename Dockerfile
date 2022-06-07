@@ -20,7 +20,7 @@ RUN docker-php-ext-install pcntl
 
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 
-RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
+RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.9/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
 RUN pickle install apcu
 RUN pickle install pcov
 RUN pecl install swoole
