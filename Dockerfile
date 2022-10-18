@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine3.15
+FROM php:8.1.11-fpm-alpine3.15
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
@@ -35,5 +35,17 @@ RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer &
 RUN composer selfupdate --2
 RUN chmod 777 -R /tmp/
 RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
+
+RUN apk update \
+    && apk upgrade \
+    && apk add --no-cache \
+        freetype-dev \
+        libpng-dev \
+        jpeg-dev \
+        libjpeg-turbo-dev
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) gd
+
+RUN docker-php-ext-install exif
 
 WORKDIR /var/www/
