@@ -5,8 +5,6 @@ FROM php:8.1.11-fpm-alpine3.15
 
 COPY php.ini /usr/local/etc/php/php.ini
 
-RUN echo "http://dl-3.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-
 RUN apk update --update && apk add --update --no-cache icu-dev libpng-dev libzip-dev mysql-client
 
 RUN docker-php-ext-install pdo_mysql
