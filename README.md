@@ -8,6 +8,8 @@
 - [`cube43/docker-apache2-php:7.3`](https://github.com/cube43/docker-apache2-php/tree/7.3)
 - [`cube43/docker-apache2-php:7.4`](https://github.com/cube43/docker-apache2-php/tree/7.4)
 - [`cube43/docker-apache2-php:8.0`](https://github.com/cube43/docker-apache2-php/tree/8.0)
+- [`cube43/docker-apache2-php:8.1`](https://github.com/cube43/docker-apache2-php/tree/8.1)
+- [`cube43/docker-apache2-php:8.2`](https://github.com/cube43/docker-apache2-php/tree/8.2)
 
 `cube43/docker-apache2-php:latest` is 7.4
 
