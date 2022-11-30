@@ -1,4 +1,4 @@
-FROM php:8.0.26RC1-fpm-alpine3.15
+FROM php:8.2.0RC6-fpm-alpine3.15
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
