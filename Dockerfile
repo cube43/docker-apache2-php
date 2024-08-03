@@ -22,12 +22,13 @@ RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.9/pickle.
 RUN pickle install apcu
 RUN pickle install pcov
 RUN pecl install swoole
-
+RUN pecl install inotify \
+    && docker-php-ext-enable inotify
 
 RUN echo "extension=pcov.so" >> /usr/local/etc/php/php.ini
 RUN echo "extension=apcu.so" >> /usr/local/etc/php/php.ini
 RUN echo "extension=swoole.so" >> /usr/local/etc/php/php.ini
-
+RUN docker-php-ext-enable swoole
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer selfupdate --2
