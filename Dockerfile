@@ -1,4 +1,4 @@
-FROM php:8.3.0RC3-fpm-alpine3.17
+FROM php:8.3.13-fpm-alpine3.20
  
 # Install PDO MySQL driver
 # See https://github.com/docker-library/php/issues/62
@@ -21,6 +21,7 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.9/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
 RUN pickle install apcu
 RUN pickle install pcov
+RUN apk add brotli-dev
 RUN pecl install swoole
 
 
