@@ -1,50 +1,51 @@
 FROM php:8.3.29-fpm-alpine3.22
- 
-# Install PDO MySQL driver
-# See https://github.com/docker-library/php/issues/62
 
+# Copier le php.ini personnalisé
 COPY php.ini /usr/local/etc/php/php.ini
 
-RUN apk update --update && apk add --update --no-cache icu-dev libpng-dev libzip-dev mysql-client
+# Installer les dépendances système et les outils de compilation
+RUN apk update && apk add --no-cache \
+    icu-dev libpng-dev libzip-dev mysql-client \
+    pcre-dev ${PHPIZE_DEPS} \
+    freetype-dev jpeg-dev libjpeg-turbo-dev \
+    imagemagick imagemagick-dev \
+    brotli-dev curl wget bash \
+    && rm -rf /var/cache/apk/*
 
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-configure intl
-RUN docker-php-ext-install intl
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install gd
-RUN docker-php-ext-configure bcmath
-RUN docker-php-ext-install bcmath
-RUN docker-php-ext-install pcntl
+# Configurer et installer les extensions PHP
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-configure bcmath \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        pdo_mysql intl zip gd bcmath pcntl exif
 
-RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
+# Installer toutes les extensions PECL et activer proprement
+RUN pecl install apcu \
+    && docker-php-ext-enable apcu
 
-RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.9/pickle.phar && mv pickle.phar /usr/local/bin/pickle && chmod +x /usr/local/bin/pickle
-RUN pickle install apcu
-RUN pickle install pcov
-RUN apk add brotli-dev
-RUN pecl install swoole
+RUN pecl install pcov \
+    && docker-php-ext-enable pcov
 
+RUN pecl install swoole \
+    && docker-php-ext-enable swoole
 
-RUN echo "extension=pcov.so" >> /usr/local/etc/php/php.ini
-RUN echo "extension=apcu.so" >> /usr/local/etc/php/php.ini
-RUN echo "extension=swoole.so" >> /usr/local/etc/php/php.ini
+RUN pecl install imagick \
+    && docker-php-ext-enable imagick
 
 
-RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
-RUN composer selfupdate --2
+# Installer Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
+    && composer self-update --2
+
+# Permissions temporaires
 RUN chmod 777 -R /tmp/
-RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
 
-RUN apk update \
-    && apk upgrade \
-    && apk add --no-cache \
-        freetype-dev \
-        libpng-dev \
-        jpeg-dev \
-        libjpeg-turbo-dev
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install -j$(nproc) gd
+# Créer l'utilisateur www-data avec UID 1000
+RUN deluser www-data \
+    && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
 
-RUN docker-php-ext-install exif
-
+# Définir le répertoire de travail
 WORKDIR /var/www/
+
+# Commande par défaut
+CMD ["php-fpm"]
