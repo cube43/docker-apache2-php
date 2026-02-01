@@ -11,7 +11,6 @@
 - [`cube43/docker-apache2-php:8.1`](https://github.com/cube43/docker-apache2-php/tree/8.1)
 - [`cube43/docker-apache2-php:8.2`](https://github.com/cube43/docker-apache2-php/tree/8.2)
 - [`cube43/docker-apache2-php:8.3`](https://github.com/cube43/docker-apache2-php/tree/8.3)
-- [`cube43/docker-apache2-php:8.3-Imagick`](https://github.com/cube43/docker-apache2-php/tree/8.3-Imagick)
 
 `cube43/docker-apache2-php:latest` is 7.4
 
