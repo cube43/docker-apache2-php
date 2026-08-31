@@ -6,10 +6,10 @@ COPY php.ini /usr/local/etc/php/php.ini
 # Installer les dépendances système et les outils de compilation
 RUN apk update && apk add --no-cache \
     icu-dev libpng-dev libzip-dev mysql-client \
-    pcre-dev ${PHPIZE_DEPS} \
+    pcre-dev openssl-dev ${PHPIZE_DEPS} \
     freetype-dev jpeg-dev libjpeg-turbo-dev \
     imagemagick imagemagick-dev \
-    brotli-dev curl wget bash \
+    brotli-dev curl wget bash git \
     && rm -rf /var/cache/apk/*
 
 # Configurer et installer les extensions PHP
